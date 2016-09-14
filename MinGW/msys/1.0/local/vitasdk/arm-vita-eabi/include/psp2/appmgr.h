@@ -70,6 +70,9 @@ typedef struct SceAppMgrExecOptParam SceAppMgrExecOptParam; // Missing struct
 
 #define SCE_APPMGR_MAX_APP_NAME_LENGTH	(31)
 
+//! name: The Title ID of the application
+int _sceAppMgrDestroyAppByName(char *name);
+
 int _sceAppMgrGetAppState(SceAppMgrAppState *appState, uint32_t len, uint32_t version);
 
 /**
@@ -78,7 +81,7 @@ int _sceAppMgrGetAppState(SceAppMgrAppState *appState, uint32_t len, uint32_t ve
  * };
  */
 
-int sceAppMgrRecieveSystemEvent(SceAppMgrSystemEvent *systemEvent);
+int sceAppMgrReceiveSystemEvent(SceAppMgrSystemEvent *systemEvent);
 
 //! Obtains the BGM port, even when it is not in front
 int sceAppMgrAcquireBgmPort(void);
@@ -96,8 +99,10 @@ typedef struct sceAppMgrLoadExecOptParam {
 int sceAppMgrLoadExec(const char *appPath, char * const argv[],
 	const SceAppMgrExecOptParam *optParam);
 
+//! flags: 0x20000 to launch, otherwise it just goes to the livearea page
 int sceAppMgrLaunchAppByUri(int flags, char *uri);
 
+//! name: The Title ID of the application
 int sceAppMgrLaunchAppByName2(char *name);
 
 //! id: 100 (photo0), 101 (friends), 102 (messages), 103 (near), 105 (music), 108 (calendar)
@@ -106,7 +111,7 @@ int sceAppMgrAppDataMount(int id, char *mount_point);
 //! id: 106 (ad), 107 (ad)
 int sceAppMgrAppDataMountById(int id, char *titleid, char *mount_point);
 
-//! param: 12 (titleid)
+//! param: 8 (category), 9 (stitle/title?), 10 (title/stitle?), 12 (titleid)
 int sceAppMgrAppParamGetString(int pid, int param, char *string, int length);
 
 int sceAppMgrConvertVs0UserDrivePath(char *path, char *mount_point, int unk);

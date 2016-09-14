@@ -1194,7 +1194,7 @@ namespace std
 #define _GLIBCXX_FULLY_DYNAMIC_STRING 0
 
 /* Define if gthreads library is available. */
-/* #undef _GLIBCXX_HAS_GTHREADS */
+#define _GLIBCXX_HAS_GTHREADS 1
 
 /* Define to 1 if a full hosted library is built, or 0 if freestanding. */
 #define _GLIBCXX_HOSTED 1
@@ -1328,7 +1328,7 @@ namespace std
 /* #undef _GLIBCXX_USE_SCHED_YIELD */
 
 /* Define if _SC_NPROCESSORS_ONLN is available in <unistd.h>. */
-#define _GLIBCXX_USE_SC_NPROCESSORS_ONLN 1
+/* #undef _GLIBCXX_USE_SC_NPROCESSORS_ONLN */
 
 /* Define if _SC_NPROC_ONLN is available in <unistd.h>. */
 /* #undef _GLIBCXX_USE_SC_NPROC_ONLN */
@@ -1349,7 +1349,7 @@ namespace std
 /* #undef _GLIBCXX_X86_RDRAND */
 
 /* Define to 1 if mutex_timedlock is available. */
-#define _GTHREAD_USE_MUTEX_TIMEDLOCK 1
+#define _GTHREAD_USE_MUTEX_TIMEDLOCK 0
 
 #if defined (_GLIBCXX_HAVE__ACOSF) && ! defined (_GLIBCXX_HAVE_ACOSF)
 # define _GLIBCXX_HAVE_ACOSF 1

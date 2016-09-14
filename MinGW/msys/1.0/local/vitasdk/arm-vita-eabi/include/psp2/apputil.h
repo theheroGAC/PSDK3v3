@@ -17,6 +17,14 @@ extern "C" {
 #endif
 
 enum {
+	SCE_APPUTIL_SAVEDATA_DATA_REMOVE_MODE_DEFAULT = 0,
+};
+
+enum {
+	SCE_APPUTIL_SAVEDATA_DATA_SAVE_MODE_FILE = 0,
+};
+
+enum {
 	SCE_APPUTIL_ERROR_PARAMETER			= 0x80100600,
 	SCE_APPUTIL_ERROR_NOT_INITIALIZED		= 0x80100601,
 	SCE_APPUTIL_ERROR_NO_MEMORY			= 0x80100602,
@@ -176,6 +184,11 @@ int sceAppUtilSaveDataDataSave(SceAppUtilSaveDataFileSlot *slot,
 	SceAppUtilSaveDataFile *files, unsigned int fileNum,
 	SceAppUtilSaveDataMountPoint *mountPoint,
 	SceSize *requiredSizeKB);
+	
+//!< Delete savedata files
+int sceAppUtilSaveDataDataRemove(SceAppUtilSaveDataFileSlot *slot,
+	SceAppUtilSaveDataRemoveItem *files, unsigned int fileNum,
+	SceAppUtilSaveDataMountPoint *mountPoint);
 
 //! Mount music data
 int sceAppUtilMusicMount();

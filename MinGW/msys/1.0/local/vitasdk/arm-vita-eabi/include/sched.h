@@ -1,97 +1,137 @@
 /*
- *  Written by Joel Sherrill <joel@OARcorp.com>.
+ * Module: sched.h
  *
- *  COPYRIGHT (c) 1989-2010.
- *  On-Line Applications Research Corporation (OAR).
+ * Purpose:
+ *      Provides an implementation of POSIX realtime extensions
+ *      as defined in
  *
- *  Permission to use, copy, modify, and distribute this software for any
- *  purpose without fee is hereby granted, provided that this entire notice
- *  is included in all copies of any software which is or includes a copy
- *  or modification of this software.
+ *              POSIX 1003.1b-1993      (POSIX.1b)
  *
- *  THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
- *  WARRANTY.  IN PARTICULAR,  THE AUTHOR MAKES NO REPRESENTATION
- *  OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY OF THIS
- *  SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
+ * --------------------------------------------------------------------------
  *
- *  $Id$
+ *      Pthreads-embedded (PTE) - POSIX Threads Library for embedded systems
+ *      Copyright(C) 2008 Jason Schmidlapp
+ *
+ *      Contact Email: jschmidlapp@users.sourceforge.net
+ *
+ *
+ *      Pthreads-embedded (PTE) - POSIX Threads Library for embedded systems
+ *      Copyright(C) 2008 Jason Schmidlapp
+ *
+ *      Contact Email: jschmidlapp@users.sourceforge.net
+ *
+ *
+ *      Based upon Pthreads-win32 - POSIX Threads Library for Win32
+ *      Copyright(C) 1998 John E. Bossom
+ *      Copyright(C) 1999,2005 Pthreads-win32 contributors
+ *
+ *      Contact Email: rpj@callisto.canberra.edu.au
+ *
+ *      The original list of contributors to the Pthreads-win32 project
+ *      is contained in the file CONTRIBUTORS.ptw32 included with the
+ *      source code distribution. The list can also be seen at the
+ *      following World Wide Web location:
+ *      http://sources.redhat.com/pthreads-win32/contributors.html
+ *
+ *      This library is free software; you can redistribute it and/or
+ *      modify it under the terms of the GNU Lesser General Public
+ *      License as published by the Free Software Foundation; either
+ *      version 2 of the License, or (at your option) any later version.
+ *
+ *      This library is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *      Lesser General Public License for more details.
+ *
+ *      You should have received a copy of the GNU Lesser General Public
+ *      License along with this library in the file COPYING.LIB;
+ *      if not, write to the Free Software Foundation, Inc.,
+ *      59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
  */
+#ifndef _SCHED_H
+#define _SCHED_H
 
-#ifndef _SCHED_H_
-#define _SCHED_H_
+#include <pte_types.h>
 
-#include <sys/types.h>
-#include <sys/sched.h>
+#undef PTE_LEVEL
 
-#ifdef __cplusplus
-extern "C" {
+#if defined(_POSIX_SOURCE)
+#define PTE_LEVEL 0
+/* Early POSIX */
 #endif
 
-#if defined(_POSIX_PRIORITY_SCHEDULING)
-/*
- *  XBD 13 - Set Scheduling Parameters, P1003.1b-2008, p. 1803
- */
-int sched_setparam(
-  pid_t                     __pid,
-  const struct sched_param *__param
-);
-
-/*
- *  XBD 13 - Set Scheduling Parameters, P1003.1b-2008, p. 1800
- */
-int sched_getparam(
-  pid_t                     __pid,
-  struct sched_param       *__param
-);
-
-/*
- *  XBD 13 - Set Scheduling Policy and Scheduling Parameters,
- *         P1003.1b-2008, p. 1805
- */
-int sched_setscheduler(
-  pid_t                     __pid,
-  int                       __policy,
-  const struct sched_param *__param
-);
-
-/*
- *  XBD 13 - Get Scheduling Policy, P1003.1b-2008, p. 1801
- */
-int sched_getscheduler(
-  pid_t                     __pid
-);
-
-/*
- *  XBD 13 - Get Scheduling Parameter Limits, P1003.1b-2008, p. 1799
- */
-int sched_get_priority_max(
-  int __policy
-);
-
-int sched_get_priority_min(
-  int  __policy
-);
-
-/*
- *  XBD 13 - Get Scheduling Parameter Limits, P1003.1b-2008, p. 1802
- */
-int sched_rr_get_interval(
-  pid_t             __pid,
-  struct timespec  *__interval
-);
-#endif /* _POSIX_PRIORITY_SCHEDULING */
-
-#if defined(_POSIX_THREADS) || defined(_POSIX_PRIORITY_SCHEDULING)
-
-/*
- *  XBD 13 - Yield Processor, P1003.1b-2008, p. 1807
- */
-int sched_yield( void );
-
-#endif /* _POSIX_THREADS or _POSIX_PRIORITY_SCHEDULING */
-
-#ifdef __cplusplus
-}
+#if defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309
+#undef PTE_LEVEL
+#define PTE_LEVEL 1
+/* Include 1b, 1c and 1d */
 #endif
 
-#endif /* _SCHED_H_ */
+#if defined(INCLUDE_NP)
+#undef PTE_LEVEL
+#define PTE_LEVEL 2
+/* Include Non-Portable extensions */
+#endif
+
+#define PTE_LEVEL_MAX 3
+
+#if !defined(PTE_LEVEL)
+#define PTE_LEVEL PTE_LEVEL_MAX
+/* Include everything */
+#endif
+
+/*
+ *
+ */
+
+/* Thread scheduling policies */
+
+enum
+{
+  SCHED_OTHER = 0,
+  SCHED_FIFO,
+  SCHED_RR,
+  SCHED_MIN   = SCHED_OTHER,
+  SCHED_MAX   = SCHED_RR
+};
+
+struct sched_param
+  {
+    int sched_priority;
+  };
+
+#ifdef __cplusplus
+extern "C"
+  {
+#endif                          /* __cplusplus */
+
+    int sched_yield (void);
+
+    int sched_get_priority_min (int policy);
+
+    int sched_get_priority_max (int policy);
+
+    int sched_setscheduler (pid_t pid, int policy);
+
+    /*
+     * Note that this macro returns ENOTSUP rather than
+     * ENOSYS as might be expected. However, returning ENOSYS
+     * should mean that sched_get_priority_{min,max} are
+     * not implemented as well as sched_rr_get_interval.
+     * This is not the case, since we just don't support
+     * round-robin scheduling. Therefore I have chosen to
+     * return the same value as sched_setscheduler when
+     * SCHED_RR is passed to it.
+     */
+#define sched_rr_get_interval(_pid, _interval) \
+  ( errno = ENOTSUP, (int) -1 )
+
+
+#ifdef __cplusplus
+  }                               /* End of extern "C" */
+#endif                          /* __cplusplus */
+
+#undef PTE_LEVEL
+#undef PTE_LEVEL_MAX
+
+#endif                          /* !_SCHED_H */
+
