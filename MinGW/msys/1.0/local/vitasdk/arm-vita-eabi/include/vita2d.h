@@ -69,6 +69,8 @@ void vita2d_draw_line(float x0, float y0, float x1, float y1, unsigned int color
 void vita2d_draw_rectangle(float x, float y, float w, float h, unsigned int color);
 void vita2d_draw_fill_circle(float x, float y, float radius, unsigned int color);
 
+void vita2d_texture_set_alloc_memblock_type(SceKernelMemBlockType type);
+SceKernelMemBlockType vita2d_texture_get_alloc_memblock_type();
 vita2d_texture *vita2d_create_empty_texture(unsigned int w, unsigned int h);
 vita2d_texture *vita2d_create_empty_texture_format(unsigned int w, unsigned int h, SceGxmTextureFormat format);
 void vita2d_free_texture(vita2d_texture *texture);
@@ -121,6 +123,7 @@ int vita2d_font_text_height(vita2d_font *font, unsigned int size, const char *te
 
 /* PGF functions are weak imports at the moment, they have to be resolved manually */
 vita2d_pgf *vita2d_load_default_pgf();
+vita2d_pgf *vita2d_load_custom_pgf(const char *path);
 void vita2d_free_pgf(vita2d_pgf *font);
 int vita2d_pgf_draw_text(vita2d_pgf *font, int x, int y, unsigned int color, float scale, const char *text);
 int vita2d_pgf_draw_textf(vita2d_pgf *font, int x, int y, unsigned int color, float scale, const char *text, ...);
