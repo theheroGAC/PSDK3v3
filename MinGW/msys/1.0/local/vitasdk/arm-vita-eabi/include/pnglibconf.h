@@ -1,8 +1,8 @@
 /* pnglibconf.h - library build configuration */
 
-/* libpng version 1.6.20, December 3, 2015 */
+/* libpng version 1.6.23, June 9, 2016 */
 
-/* Copyright (c) 1998-2014 Glenn Randers-Pehrson */
+/* Copyright (c) 1998-2016 Glenn Randers-Pehrson */
 
 /* This code is released under the libpng license. */
 /* For conditions of distribution and use, see the disclaimer */
@@ -24,7 +24,7 @@
 #define PNG_BUILD_GRAYSCALE_PALETTE_SUPPORTED
 #define PNG_CHECK_FOR_INVALID_INDEX_SUPPORTED
 #define PNG_COLORSPACE_SUPPORTED
-/*#undef PNG_CONSOLE_IO_SUPPORTED*/
+#define PNG_CONSOLE_IO_SUPPORTED
 #define PNG_CONVERT_tIME_SUPPORTED
 #define PNG_EASY_ACCESS_SUPPORTED
 /*#undef PNG_ERROR_NUMBERS_SUPPORTED*/
@@ -107,6 +107,7 @@
 #define PNG_SIMPLIFIED_READ_SUPPORTED
 #define PNG_SIMPLIFIED_WRITE_AFIRST_SUPPORTED
 #define PNG_SIMPLIFIED_WRITE_BGR_SUPPORTED
+#define PNG_SIMPLIFIED_WRITE_STDIO_SUPPORTED
 #define PNG_SIMPLIFIED_WRITE_SUPPORTED
 #define PNG_STDIO_SUPPORTED
 #define PNG_STORE_UNKNOWN_CHUNKS_SUPPORTED
@@ -183,7 +184,6 @@
 /* end of options */
 /* settings */
 #define PNG_API_RULE 0
-#define PNG_ARM_NEON_OPT 2
 #define PNG_DEFAULT_READ_MACROS 1
 #define PNG_GAMMA_THRESHOLD_FIXED 5000
 #define PNG_IDAT_READ_SIZE PNG_ZBUF_SIZE
