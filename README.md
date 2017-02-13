@@ -17,8 +17,6 @@ psp2link [https://github.com/psxdev/psp2link]
 
 debugnet [https://github.com/psxdev/debugnet]
 
-You'll need also Cmake for win32 if you want to compile cmake projects and git for windows if you want to clone them.
-
 ===
 Usage
 ===
@@ -31,6 +29,6 @@ C:/PSDK3v3-master/*
 
 Rename PSDK3v3-master to PSDK3v3
 
-That's it! Now you only need to send the msys batch file found at C:/PSDK3v3/MinGW/msys/1.0/msys.bat to Desktop, so you can use it properly.
+That's it! Now you only need to send the MinGW exe file found at C:/PSDK3v3/msys64/mingw64.exe to Desktop as shortcut, so you can use it properly.
 
 Enjoy :)
