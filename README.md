@@ -75,6 +75,10 @@ C:/PSDK3v3-master/*
 
 Rename PSDK3v3-master to PSDK3v3
 
-That's it! Now you only need to send the MinGW exe file found at C:/PSDK3v3/msys64/mingw64.exe to Desktop as shortcut, so you can use it properly.
+Send the MinGW exe file found at C:/PSDK3v3/msys64/mingw64.exe to Desktop as shortcut.
+
+Run the shortcut once as administrator.
+
+That's it! You can now compile the latest projects for vita :)
 
 Enjoy :)
