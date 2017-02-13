@@ -3,19 +3,36 @@ fork of Estwald's PSDK3v2 with added vitasdk support
 
 List of tools in it
 
-curl [https://curl.haxx.se/]
-
-vitasdk [https://github.com/vitasdk]
-
-vita_portlibs [https://github.com/xerpi/vita_portlibs]
-
-ftpvita [https://github.com/xerpi/libftpvita]
-
-vita2d [https://github.com/xerpi/libvita2d]
-
-psp2link [https://github.com/psxdev/psp2link]
-
-debugnet [https://github.com/psxdev/debugnet]
+zlib
+libpng
+libexif
+libjpeg-turbo
+jansson
+yaml-cpp
+freetype
+fftw
+libvita2d
+libmad
+libogg
+libvorbis
+libftpvita
+henkaku
+taihen
+libk
+libpsp2shell
+onigmo
+sdl2
+sdl_mixer
+sdl_image
+sdl_net
+sdl_ttf
+openssl
+curl
+expat
+opus
+unrar
+glm
+libxml2
 
 ===
 Usage
