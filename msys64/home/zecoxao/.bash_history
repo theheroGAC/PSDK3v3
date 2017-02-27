@@ -52,3 +52,16 @@ cd ..
 cd ..
 rm -rf VitaShell-master/
 arm-vita-eabi-gcc.exe 
+cd d:
+cd workdir/
+ls
+rm -rf out/
+vita-libs-gen.exe db_.yml out
+vita-libs-gen.exe 
+vita-libs-gen.exe db_.yml 
+vita-libs-gen.exe db_.yml out
+vita-libs-gen.exe db_.yml out
+cd d:
+cd workdir/out/
+make -j16
+make install
